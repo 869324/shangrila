@@ -23,20 +23,6 @@ const utilsSlice = createSlice({
         getPropertyTypes: { ...state.getPropertyTypes, ...action.payload },
       };
     },
-
-    universalReset(state, action) {
-      const target = action.payload.state;
-      return {
-        ...state,
-        [target]: {
-          ...state[target],
-          tried: false,
-          loading: false,
-          status: false,
-          error: null,
-        },
-      };
-    },
   },
 });
 

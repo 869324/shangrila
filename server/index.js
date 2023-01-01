@@ -11,8 +11,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/public", require("./Routes/publicRoutes"));
 app.use("/users", tokenValidator, require("./Routes/userRoutes"));
+app.use("/readings", tokenValidator, require("./Routes/readingRoutes"));
+app.use("/bills", tokenValidator, require("./Routes/billRoutes"));
+app.use("/prices", tokenValidator, require("./Routes/priceRoutes"));
 app.use("/utils", require("./Routes/utilsRoutes"));
-// app.use("/messages", require("./Routes/MessageRoutes"));
 
 app.use((err, req, res, next) => {
   const message = errorUtil.formartError(err.stack);

@@ -26,7 +26,6 @@ async function getByCode(code, next) {
 }
 
 async function updateOwner(voucherId, userId, next) {
-  console.log({ voucherId, userId });
   await Voucher.update(
     { userId },
     {

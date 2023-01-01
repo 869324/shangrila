@@ -5,15 +5,13 @@ import call from "../../Utils/api";
 import { showNotification } from "./notificationReducer";
 
 const universalState = {
-  tried: false,
   loading: false,
   status: false,
-  error: null,
 };
 
 const initialState = {
-  getBills: { ...universalState, bills: null },
-  pay: { ...universalState },
+  getBills: { ...universalState, bills: [] },
+  pay: { ...universalState, currentBill: {} },
 };
 
 const billSlice = createSlice({
@@ -33,35 +31,26 @@ const billSlice = createSlice({
         getBills: { ...state.getBills, ...action.payload },
       };
     },
-
-    universalReset(state, action) {
-      const target = action.payload.state;
-      return {
-        ...state,
-        [target]: {
-          ...state[target],
-          tried: false,
-          loading: false,
-          status: false,
-          error: null,
-        },
-      };
-    },
   },
 });
 
 export const pay = (bill) => async (dispatch) => {
-  dispatch(billSlice.actions.pay({ loading: true, tried: true }));
+  dispatch(
+    billSlice.actions.pay({ loading: true, tried: true, currentBill: bill })
+  );
 
-  call({ url: `/bill/pay`, data: bill, method: "POST" })
+  call({ url: `/bills/pay`, data: bill, method: "POST" })
     .then((response) => {
+      dispatch(billSlice.actions.pay({ currentBill: {} }));
       success(dispatch, billSlice.actions.pay);
+      dispatch(getBills(bill.userId));
       dispatch(showNotification("Payment successfull", INFO_TYPES.SUCCESS));
     })
     .catch((error) => {
+      dispatch(billSlice.actions.pay({ currentBill: {} }));
       fail(dispatch, billSlice.actions.pay, error);
       dispatch(
-        showNotification(error.response.data.message || "Internal Server Error")
+        showNotification(error.response.data || "Internal Server Error")
       );
     });
 };
@@ -69,7 +58,7 @@ export const pay = (bill) => async (dispatch) => {
 export const getBills = (userId) => async (dispatch) => {
   dispatch(billSlice.actions.getBills({ loading: true, tried: true }));
 
-  call({ url: `/bill/get`, data: { id: userId }, method: "POST" })
+  call({ url: `/bills/getBills`, data: { userId }, method: "POST" })
     .then((response) => {
       success(dispatch, billSlice.actions.getBills);
       dispatch(
@@ -81,10 +70,6 @@ export const getBills = (userId) => async (dispatch) => {
     .catch((error) => {
       fail(dispatch, billSlice.actions.getBills, error);
     });
-};
-
-export const billReset = (state) => async (dispatch) => {
-  dispatch(billSlice.actions.universalReset({ state: state }));
 };
 
 export default billSlice.reducer;

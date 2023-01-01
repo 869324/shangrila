@@ -1,0 +1,59 @@
+@import "../../globalStyles";
+
+.main {
+  width: 95%;
+  height: 95%;
+  @include flexVertical;
+  justify-content: start;
+  overflow: auto;
+}
+
+.bill {
+  width: 90%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 10px;
+  @include flexVertical;
+  background-color: rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 3px 10px rgba(250, 250, 250, 0.2);
+}
+
+.billDiv {
+  width: 95%;
+  @include flexHorizontal;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.billDiv2 {
+  width: 49%;
+  @include flexHorizontal;
+  margin-bottom: 7px;
+}
+
+.infoDiv {
+  width: 80%;
+  @include flexHorizontal;
+  justify-content: start;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.label {
+  color: $primaryColor;
+  margin-right: 10px;
+}
+
+.value {
+  color: whitesmoke;
+}
+
+.pay {
+  background: transparent;
+  border: 2px solid $secondaryColor;
+  color: $primaryColor;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 15px;
+  padding: 5px 50px;
+}

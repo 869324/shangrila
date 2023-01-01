@@ -1,5 +1,4 @@
 const { verifyToken } = require("../Utils/jwt");
-const creatError = require("http-errors");
 
 const tokenValidator = async (req, res, next) => {
   let token = req.headers.authorization;
@@ -9,7 +8,8 @@ const tokenValidator = async (req, res, next) => {
     token = token.split("").slice(7, token.length).join("");
 
     try {
-      res.send(verifyToken(token));
+      verifyToken(token);
+      next();
     } catch (error) {
       next(new Error("Unauthorized"));
     }

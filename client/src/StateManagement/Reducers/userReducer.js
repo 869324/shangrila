@@ -5,10 +5,8 @@ import { showNotification } from "./notificationReducer";
 import { INFO_TYPES } from "../../Constants/constants";
 
 const universalState = {
-  tried: false,
   loading: false,
   status: false,
-  error: null,
 };
 
 const initialState = {
@@ -72,10 +70,8 @@ const userSlice = createSlice({
         ...state,
         [target]: {
           ...state[target],
-          tried: false,
           loading: false,
           status: false,
-          error: null,
         },
       };
     },
@@ -147,7 +143,7 @@ export const verifyToken = (token) => async (dispatch) => {
 export const getUserData = (token) => async (dispatch) => {
   dispatch(userSlice.actions.getUserData({ loading: true, tried: true }));
 
-  call({ url: `/users/data`, data: token, method: "POST" })
+  call({ url: `/users/getUserData`, data: { token }, method: "POST" })
     .then((response) => {
       dispatch(
         userSlice.actions.getUserData({
