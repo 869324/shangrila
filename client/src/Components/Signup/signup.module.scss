@@ -1,0 +1,59 @@
+@import "../../globalStyles";
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+}
+
+.overlay {
+  @include overlay;
+  @include flexHorizontal;
+}
+
+.h2 {
+  text-align: center;
+  color: $primaryColor;
+}
+
+.form {
+  min-width: 50%;
+  min-height: 80%;
+  @include flexVertical;
+  justify-content: space-around;
+  background-color: rgb(220, 220, 220);
+  border-radius: 10px;
+}
+
+.span {
+  font-size: 17px;
+  width: 70%;
+  @include flexHorizontal;
+  justify-content: start;
+}
+
+.label {
+  margin-right: 7px;
+  font-weight: bold;
+}
+
+.input {
+  @include input;
+  width: 100%;
+  margin: auto;
+}
+
+.login {
+  @include button;
+}
+
+#btnScan {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: $primaryColor;
+  color: white;
+  font-weight: bold;
+  margin-left: 5px;
+}

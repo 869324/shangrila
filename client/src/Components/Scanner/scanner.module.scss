@@ -1,0 +1,20 @@
+@import "../../globalStyles";
+
+.modalCont {
+  @include modalContent;
+}
+
+.header {
+  @include flexHorizontal;
+  justify-content: space-between;
+  padding: 0px 10px;
+}
+
+#close {
+  padding: 5px;
+  border-radius: 7px;
+}
+
+#close:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}

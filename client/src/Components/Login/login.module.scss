@@ -1,0 +1,40 @@
+@import "../../globalStyles";
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  @include flexHorizontal;
+}
+
+.form {
+  width: 50%;
+  height: 60%;
+  @include flexVertical;
+  justify-content: space-around;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+}
+
+h2 {
+  color: $primaryColor;
+}
+
+.inputDiv {
+  @include inputDiv;
+  width: 80%;
+}
+
+.inputLabel {
+  @include inputLabel;
+}
+
+.input {
+  @include input;
+  width: 50%;
+}
+
+#login {
+  @include button;
+}
