@@ -5,6 +5,7 @@ import {
   getUserData,
   verifyToken,
 } from "../StateManagement/Reducers/userReducer";
+import User from "./User/user";
 
 function UserRouter() {
   const dispatch = useDispatch();
@@ -43,8 +44,8 @@ function UserRouter() {
         path="/"
         element={<Navigate to={user.role == "ADMIN" ? "admin" : "user"} />}
       />
-      {/* <Route path="user/*" element={<User />} />
-      <Route path="admin/*" element={<Admin />} /> */}
+      <Route path="user/*" element={<User />} />
+      {/*<Route path="admin/*" element={<Admin />} /> */}
     </Routes>
   ) : (
     <Routes></Routes>

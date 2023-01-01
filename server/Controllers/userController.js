@@ -1,10 +1,8 @@
-const moment = require("moment");
 const User = require("../Models/userModel");
 const voucherRepo = require("../Repos/voucherRepo");
 const userRepo = require("../Repos/userRepo");
 const crypto = require("crypto");
 const jwtUtils = require("../Utils/jwt");
-const db = require("../Config/config");
 
 async function login(req, res, next) {
   const { username, password } = req.body;
@@ -13,8 +11,6 @@ async function login(req, res, next) {
 
   let user = await userRepo.getByEmail(username);
   if (user) {
-    user = user.dataValues;
-
     if (user.password == hash) {
       res.send(jwtUtils.createToken(user));
     } else {
@@ -90,9 +86,22 @@ async function createUser(req, res, next) {
   }
 }
 
+async function getUserByToken(req, res, next) {
+  const { token } = req.body;
+
+  try {
+    const user = jwtUtils.decode(token);
+    delete user.password;
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getUsers,
   createUser,
   login,
   verifyToken,
+  getUserByToken,
 };
