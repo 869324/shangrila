@@ -46,10 +46,33 @@ async function getUsers() {
   return users.map((user) => user.dataValues);
 }
 
+async function getByType(typeId) {
+  const users = await User.findAll({
+    where: {
+      propertyType: typeId,
+    },
+  });
+
+  return users.map((user) => user.dataValues);
+}
+
+async function getByTypeAndBedrooms(typeId, bedrooms) {
+  const users = await User.findAll({
+    where: {
+      propertyType: typeId,
+      bedrooms,
+    },
+  });
+
+  return users.map((user) => user.dataValues);
+}
+
 module.exports = {
   createUser,
   getByEmail,
   updateCredit,
   getById,
   getUsers,
+  getByType,
+  getByTypeAndBedrooms,
 };

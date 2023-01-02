@@ -15,6 +15,7 @@ app.use("/readings", tokenValidator, require("./Routes/readingRoutes"));
 app.use("/bills", tokenValidator, require("./Routes/billRoutes"));
 app.use("/prices", tokenValidator, require("./Routes/priceRoutes"));
 app.use("/stats", tokenValidator, require("./Routes/statsRoutes"));
+app.use("/igse", tokenValidator, require("./Routes/igseRoutes"));
 app.use("/utils", require("./Routes/utilsRoutes"));
 
 app.use((err, req, res, next) => {
