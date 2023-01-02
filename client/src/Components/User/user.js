@@ -6,6 +6,7 @@ import NavBar from "../NavBar/navBar";
 import styles from "./user.module.scss";
 import Readings from "../Readings/readings";
 import Bills from "../Bills/bills";
+import Credit from "../Credit/credit";
 
 function User() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function User() {
             <Route path="/" element={<Navigate to={"readings-user"} />} />
             <Route path="readings-user" element={<Readings />} />
             <Route path="bills" element={<Bills />} />
+            <Route path="credit" element={<Credit />} />
           </Routes>
         </div>
       </div>
