@@ -3,10 +3,8 @@ import { success, fail } from "../../Utils/actions";
 import call from "../../Utils/api";
 
 const universalState = {
-  tried: false,
   loading: false,
   status: false,
-  error: null,
 };
 
 const initialState = {
@@ -23,27 +21,13 @@ const statsSlice = createSlice({
         getStats: { ...state.getStats, ...action.payload },
       };
     },
-
-    universalReset(state, action) {
-      const target = action.payload.state;
-      return {
-        ...state,
-        [target]: {
-          ...state[target],
-          tried: false,
-          loading: false,
-          status: false,
-          error: null,
-        },
-      };
-    },
   },
 });
 
 export const getStats = () => async (dispatch) => {
   dispatch(statsSlice.actions.getStats({ loading: true, tried: true }));
 
-  call({ url: `/statistics/getStats`, data: {}, method: "GET" })
+  call({ url: `/stats/getStats`, data: {}, method: "GET" })
     .then((response) => {
       dispatch(statsSlice.actions.getStats({ stats: response.data }));
       success(dispatch, statsSlice.actions.getStats);

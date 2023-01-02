@@ -21,7 +21,7 @@ async function getReadings(req, res, next) {
   const { userId } = req.body;
 
   try {
-    const readings = readingRepo.getReadings(userId);
+    const readings = await readingRepo.getReadings(userId);
     res.send(readings);
   } catch (error) {
     next(error);

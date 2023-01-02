@@ -12,6 +12,7 @@ async function getReadings(userId) {
     where: {
       userId,
     },
+    order: [["date", "desc"]],
   });
 
   return readings;

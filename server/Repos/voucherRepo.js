@@ -22,7 +22,7 @@ async function getByCode(code, next) {
     },
   });
 
-  return voucher;
+  return voucher ? voucher.dataValues : null;
 }
 
 async function updateOwner(voucherId, userId, next) {

@@ -10,6 +10,18 @@ async function getPrices(req, res, next) {
   }
 }
 
+async function updatePrices(req, res, next) {
+  const prices = req.body;
+  try {
+    await priceRepo.updatePrices(prices);
+
+    res.send(true);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getPrices,
+  updatePrices,
 };
