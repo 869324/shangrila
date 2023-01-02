@@ -6,6 +6,7 @@ import {
   verifyToken,
 } from "../StateManagement/Reducers/userReducer";
 import User from "./User/user";
+import Admin from "./Admin/admin";
 
 function UserRouter() {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function UserRouter() {
   }, []);
 
   useEffect(() => {
-    if (!Object.keys(user)) {
+    if (!Object.keys(user).length) {
       const token = localStorage.getItem("token");
       if (token) {
         dispatch(getUserData(token));
@@ -38,14 +39,14 @@ function UserRouter() {
     }
   }, [tokenState]);
 
-  return user ? (
+  return user.role ? (
     <Routes>
       <Route
         path="/"
-        element={<Navigate to={user.role == "ADMIN" ? "admin" : "user"} />}
+        element={<Navigate to={user.role == 1 ? "admin" : "user"} />}
       />
       <Route path="user/*" element={<User />} />
-      {/*<Route path="admin/*" element={<Admin />} /> */}
+      <Route path="admin/*" element={<Admin />} />
     </Routes>
   ) : (
     <Routes></Routes>

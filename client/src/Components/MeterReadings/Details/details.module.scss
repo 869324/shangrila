@@ -1,0 +1,48 @@
+@import "../../../GlobalStyles/global";
+
+.main {
+  width: 70%;
+  height: 70%;
+  @include modalContent;
+  background-color: rgb(230, 230, 230);
+}
+
+.header {
+  padding: 0px 30px;
+  @include centerContainerH;
+}
+
+.h2 {
+  text-align: center;
+  color: black;
+}
+
+.close {
+  position: relative;
+  color: $primaryColor;
+  padding: 5px;
+  border-radius: 7px;
+  top: 15%;
+  left: 40%;
+}
+
+.close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  @include table;
+  width: 80%;
+
+  thead {
+    @include rowHeader;
+  }
+
+  th {
+    @include tableHeader;
+  }
+
+  tr {
+    @include rowData;
+  }
+}

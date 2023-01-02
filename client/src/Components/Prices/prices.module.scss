@@ -1,0 +1,58 @@
+@import "../../globalStyles";
+
+.form {
+  width: 70%;
+  height: 60%;
+  @include flexVertical;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: start;
+  box-shadow: 0px 3px 10px rgba(250, 250, 250, 0.6);
+}
+
+.h2 {
+  margin-bottom: 30px;
+  color: $secondaryColor;
+}
+
+.formDiv {
+  width: 100%;
+  @include flexHorizontal;
+  justify-content: space-between;
+}
+
+.formDiv2 {
+  width: 49%;
+  @include flexHorizontal;
+  margin-bottom: 30px;
+}
+
+.inputDiv {
+  width: 80%;
+  @include flexVertical;
+  align-items: flex-start;
+}
+
+.label {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: $primaryColor;
+  color: $primaryColor;
+}
+
+.input {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 17px;
+  width: 100%;
+}
+
+.submit {
+  margin-top: 30px;
+  @include button;
+  background-color: $secondaryColor;
+  color: black;
+}

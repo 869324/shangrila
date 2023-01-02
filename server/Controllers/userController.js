@@ -33,14 +33,14 @@ async function verifyToken(req, res, next) {
   }
 }
 
-async function getUsers(req, res) {
-  const users = await User.findAll({
-    where: {
-      role: 2,
-    },
-  });
+async function getUsers(req, res, next) {
+  try {
+    const users = await userRepo.getUsers();
 
-  res.send(users);
+    res.send(users);
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function createUser(req, res, next) {
@@ -51,8 +51,6 @@ async function createUser(req, res, next) {
   if (!voucher) {
     next(new Error("Invalid voucher code!"));
   } else {
-    voucher = voucher.dataValues;
-
     if (voucher.userId) {
       next(new Error("Voucher is used!"));
     } else {
@@ -90,9 +88,37 @@ async function getUserByToken(req, res, next) {
   const { token } = req.body;
 
   try {
-    const user = jwtUtils.decode(token);
+    const { id } = jwtUtils.decode(token);
+    const user = await userRepo.getById(id);
     delete user.password;
     res.send(user);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function topup(req, res, next) {
+  const { userId, code } = req.body;
+
+  try {
+    const user = await userRepo.getById(userId);
+    if (user) {
+      const voucher = await voucherRepo.getByCode(code);
+
+      if (voucher) {
+        if (voucher.userId) {
+          next(new Error("Voucher is used!"));
+        } else {
+          voucherRepo.updateOwner(voucher.id, userId);
+          userRepo.updateCredit(userId, user.credit + voucher.credit);
+          res.send(true);
+        }
+      } else {
+        next(new Error("Invalid voucher code!"));
+      }
+    } else {
+      next(new Error("Error processing topup!"));
+    }
   } catch (error) {
     next(error);
   }
@@ -104,4 +130,5 @@ module.exports = {
   login,
   verifyToken,
   getUserByToken,
+  topup,
 };

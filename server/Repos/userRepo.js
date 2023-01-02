@@ -36,9 +36,20 @@ async function updateCredit(id, credit) {
   );
 }
 
+async function getUsers() {
+  const users = await User.findAll({
+    where: {
+      role: 2,
+    },
+  });
+
+  return users.map((user) => user.dataValues);
+}
+
 module.exports = {
   createUser,
   getByEmail,
   updateCredit,
   getById,
+  getUsers,
 };

@@ -8,6 +8,22 @@ async function getPrices() {
   return price.dataValues;
 }
 
+async function updatePrices(prices) {
+  await Price.update(
+    {
+      gas: prices.gas,
+      electricityDay: prices.electricityDay,
+      electricityNight: prices.electricityNight,
+    },
+    {
+      where: {
+        id: prices.id,
+      },
+    }
+  );
+}
+
 module.exports = {
   getPrices,
+  updatePrices,
 };
